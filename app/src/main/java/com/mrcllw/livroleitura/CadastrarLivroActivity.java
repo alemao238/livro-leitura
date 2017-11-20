@@ -94,5 +94,7 @@ public class CadastrarLivroActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Livro salvo com sucesso!", Toast.LENGTH_LONG).show();
             }
         });
+
+        finish();
     }
 }
