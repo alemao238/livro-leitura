@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "965509339355",
+    "firebase_url": "https://livro-leitura.firebaseio.com",
+    "project_id": "livro-leitura",
+    "storage_bucket": "livro-leitura.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965509339355:android:c068823d5a5e3615",
+        "android_client_info": {
+          "package_name": "com.mrcllw.livroleitura"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965509339355-acd99avekhkjjr1p24g8452sp91tm155.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9uWuCBqA2W-1Ren8uwJR_zMfQaecUzxU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
