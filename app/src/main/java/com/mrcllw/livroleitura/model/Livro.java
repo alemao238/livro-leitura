@@ -1,10 +1,12 @@
 package com.mrcllw.livroleitura.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Marcello on 20/11/2017.
  */
 
-public class Livro {
+public class Livro implements Serializable{
     private String id;
     private String nome;
     private String paginas;
@@ -33,5 +35,10 @@ public class Livro {
     }
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    @Override
+    public String toString() {
+        return this.nome;
     }
 }

@@ -16,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CadastrarLivroActivity"></activity>
+        <activity android:name=".CadastrarLivroActivity" />
+        <activity android:name=".NotificacaoActivity"></activity>
+        <receiver android:name=".util.NotificacaoUtil"/>
     </application>
 
 </manifest>

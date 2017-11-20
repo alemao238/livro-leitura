@@ -21,7 +21,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ListView lvLivros;
-    private FloatingActionButton fabAdicionar;
+    private FloatingActionButton fabAdicionar, fabNotificar;
 
     private DatabaseReference databaseReference;
 
@@ -37,10 +37,20 @@ public class MainActivity extends AppCompatActivity {
 
         lvLivros = (ListView) findViewById(R.id.lvLivros);
         fabAdicionar = (FloatingActionButton) findViewById(R.id.fabAdicionar);
+        fabNotificar = (FloatingActionButton) findViewById(R.id.fabNotificar);
+
         fabAdicionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CadastrarLivroActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        fabNotificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, NotificacaoActivity.class);
                 startActivity(intent);
             }
         });
