@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mrcllw.livroleitura.helper.NotificacaoHelper;
 import com.mrcllw.livroleitura.model.Livro;
 import com.mrcllw.livroleitura.util.DateTimePickerDialogUtil;
 import com.mrcllw.livroleitura.util.NotificacaoUtil;
@@ -27,14 +28,8 @@ import java.util.List;
 
 public class NotificacaoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    private EditText etDataHora;
-    private Spinner spLivro;
-    private Button btnSalvarNotificacao;
-
     private DateTimePickerDialogUtil dateTimePickerDialogUtil;
-    private DatabaseReference databaseReference;
-    private List<Livro> livros;
-    private ArrayAdapter<Livro> adapter;
+    private NotificacaoHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,38 +37,7 @@ public class NotificacaoActivity extends AppCompatActivity implements DatePicker
         setContentView(R.layout.activity_notificacao);
 
         dateTimePickerDialogUtil = new DateTimePickerDialogUtil(this);
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("livros");
-        livros = new ArrayList<>();
-
-        etDataHora = (EditText) findViewById(R.id.etDataHora);
-        spLivro = (Spinner) findViewById(R.id.spLivro);
-        btnSalvarNotificacao = (Button) findViewById(R.id.btnSalvarNotificacao);
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                livros.clear();
-                for(DataSnapshot data : dataSnapshot.getChildren()){
-                    Livro livro = data.getValue(Livro.class);
-                    livros.add(livro);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
-
-        adapter = new ArrayAdapter<Livro>(this, android.R.layout.simple_list_item_1, livros);
-        spLivro.setAdapter(adapter);
-
-        btnSalvarNotificacao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NotificacaoUtil.criarNotificacao(NotificacaoActivity.this, dateTimePickerDialogUtil.getDate(), (Livro) spLivro.getSelectedItem());
-                Toast.makeText(NotificacaoActivity.this, "Notificação Salva!", Toast.LENGTH_LONG).show();
-            }
-        });
+        helper = new NotificacaoHelper(this);
     }
 
     @Override
