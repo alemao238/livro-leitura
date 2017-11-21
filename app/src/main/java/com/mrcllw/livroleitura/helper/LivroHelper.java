@@ -36,7 +36,6 @@ public class LivroHelper {
     public LivroHelper(CadastrarLivroActivity activity){
         this.activity = activity;
 
-        livro = new Livro();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("livros");
 
         ivFoto = (ImageView) activity.findViewById(R.id.ivFoto);
@@ -50,12 +49,25 @@ public class LivroHelper {
                 salvarLivro();
             }
         });
+
+        livro = (Livro) activity.getIntent().getSerializableExtra("livro");
+        if(livro != null){
+            carregaDadosParaTela(livro);
+        } else {
+            livro = new Livro();
+        }
     }
 
     private void salvarLivro(){
-        String id = databaseReference.push().getKey();
-        livro = carregaDadosDaTela();
-        livro.setId(id);
+        String id = "";
+        if(livro.getId() == null) {
+            id = databaseReference.push().getKey();
+            livro = carregaDadosDaTela();
+            livro.setId(id);
+        } else {
+            id = livro.getId();
+            livro = carregaDadosDaTela();
+        }
 
         databaseReference.child(id).setValue(livro).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -73,10 +85,19 @@ public class LivroHelper {
     }
 
     private Livro carregaDadosDaTela(){
-        livro.setFoto(Base64Util.bitmapToBase64((String) ivFoto.getTag()));
+        if(ivFoto.getTag() != null) {
+            livro.setFoto(Base64Util.bitmapToBase64((String) ivFoto.getTag()));
+        }
         livro.setNome(etNome.getText().toString());
         livro.setPaginas(etPaginas.getText().toString());
         return livro;
+    }
+
+    private void carregaDadosParaTela(Livro livro){
+        this.livro = livro;
+        ivFoto.setImageBitmap(Base64Util.base64ToBitmap(livro.getFoto()));
+        etNome.setText(livro.getNome());
+        etPaginas.setText(livro.getPaginas());
     }
 
     public void setFoto(String localFoto){
